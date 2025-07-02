@@ -5,23 +5,48 @@ body {
   background-color: #f9f9f9;
 }
 
+.input-group {
+  margin-bottom: 2em;
+}
+
 input[type="text"] {
-  font-size: 1.5em;
+  font-size: 1.2em;
   padding: 0.5em;
-  width: 300px;
-  margin-bottom: 1em;
+  width: 250px;
+  margin-right: 0.5em;
 }
 
-#heat-index {
-  font-size: 4em;
+button {
+  font-size: 1.1em;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  background-color: #457b9d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.weather-box {
+  display: inline-block;
+  text-align: center;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+h3 {
+  margin-bottom: 0.2em;
+  color: #333;
+}
+
+.value {
+  font-size: 3em;
+  font-weight: bold;
   color: #e63946;
-}
-
-.info {
-  font-size: 1.5em;
-  color: #555;
+  margin-bottom: 1em;
 }
 
 #error {
   color: red;
+  font-size: 1.1em;
+  margin-top: 1em;
 }
