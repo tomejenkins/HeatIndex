@@ -1,86 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Heat Index by ZIP</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      padding-top: 10vh;
-    }
-    input[type="text"] {
-      font-size: 1.5em;
-      padding: 0.5em;
-      width: 300px;
-      margin-bottom: 1em;
-    }
-    #heat-index {
-      font-size: 4em;
-      color: #e63946;
-    }
-    .info {
-      font-size: 1.5em;
-    }
-    #error {
-      color: red;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <input type="text" id="zip-input" placeholder="Enter ZIP Code (e.g. 75061)" />
-  <div id="heat-index">--°F</div>
-  <div class="info" id="temperature">Temp: --°F</div>
-  <div class="info" id="humidity">Humidity: --%</div>
-  <p id="error"></p>
+  <div class="input-group">
+    <input type="text" id="zip-input" placeholder="Enter ZIP Code (e.g. 75061)" />
+    <button id="update-btn">Get Weather</button>
+  </div>
 
-  <script>
-    const API_KEY = 'e8ea187008af6209b7a3375962f6e84d'; // Replace with your OpenWeatherMap key
+  <div class="weather-box">
+    <h3>Heat Index</h3>
+    <div id="heat-index" class="value">--°F</div>
+    
+    <h3>Temperature</h3>
+    <div id="temperature" class="value">--°F</div>
 
-    function calculateHeatIndex(T, R) {
-      return -42.379 + 2.04901523*T + 10.14333127*R
-             - 0.22475541*T*R - 0.00683783*T*T
-             - 0.05481717*R*R + 0.00122874*T*T*R
-             + 0.00085282*T*R*R - 0.00000199*T*T*R*R;
-    }
+    <h3>Humidity</h3>
+    <div id="humidity" class="value">--%</div>
 
-    async function fetchWeather(zip) {
-      try {
-        const res = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?zip=${zip},us&units=imperial&appid=${API_KEY}`
-        );
-        if (!res.ok) throw new Error(`ZIP not found (code: ${res.status})`);
-        const data = await res.json();
+    <p id="error"></p>
+  </div>
 
-        const temp = data.main.temp;
-        const humidity = data.main.humidity;
-        const heatIndex = calculateHeatIndex(temp, humidity);
-
-        document.getElementById('temperature').textContent = `Temp: ${temp.toFixed(1)}°F`;
-        document.getElementById('humidity').textContent = `Humidity: ${humidity}%`;
-        document.getElementById('heat-index').textContent = `${heatIndex.toFixed(1)}°F`;
-        document.getElementById('error').textContent = '';
-      } catch (err) {
-        document.getElementById('error').textContent = err.message;
-        document.getElementById('temperature').textContent = 'Temp: --°F';
-        document.getElementById('humidity').textContent = 'Humidity: --%';
-        document.getElementById('heat-index').textContent = '--°F';
-      }
-    }
-
-    document.getElementById('zip-input').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        const zip = e.target.value.trim();
-        if (/^\d{5}$/.test(zip)) {
-          fetchWeather(zip);
-        } else {
-          document.getElementById('error').textContent = 'Invalid ZIP code';
-        }
-      }
-    });
-
-    // Optional: load 75061 on first visit
-    fetchWeather("75061");
-  </script>
+  <script src="script.js" defer></script>
 </body>
 </html>
