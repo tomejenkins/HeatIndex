@@ -44,6 +44,12 @@ h3 {
   color: #e63946;
   margin-bottom: 1em;
 }
+#city-name {
+  font-size: 2.5em;
+  color: #1d3557;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
 
 #error {
   color: red;
